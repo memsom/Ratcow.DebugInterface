@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Ratcow.Debugging.Client</id>
+        <version>0.0.1</version>
+        <authors>Ratcow Soft</authors>
+        <iconUrl>https://pbs.twimg.com/profile_images/414756286/ratcowmascot_400x400.PNG</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Simple client to the Ratcow.Debugging.Server's WCF service. Uses old school WebService to make the implementation almost configuration free.
+
+          Can be used to get a list of all registered variables, and get the live value of those variables at runtime in JSON format.
+
+          N.B. as this is targetting 4.0, there's a dependency on Microsoft.Bcl.Async if you want to use async/await in .Net 4.0. As such I have that dependency set automagically.</description>
+        <copyright>Ratcow soft (c) 2017</copyright>
+        <dependencies>
+            <group>
+                <dependency id="Newtonsoft.Json" version="[6.0.8]" />
+            </group>
+            <group targetFramework=".NETFramework4.0">
+                <dependency id="Newtonsoft.Json" version="[6.0.8]" />
+                <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Ratcow.Debugging.Client\bin\Debug\Ratcow.Debugging.Client.dll" target="lib\Ratcow.Debugging.Client.dll" />
+    </files>
+</package>

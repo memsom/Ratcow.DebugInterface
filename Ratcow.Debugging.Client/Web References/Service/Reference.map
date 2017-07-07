@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://127.0.0.1:9001/DebugInterface?xsd=xsd1" filename="DebugInterface.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://127.0.0.1:9001/DebugInterface?xsd=xsd0" filename="DebugInterface0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://127.0.0.1:9001/DebugInterface?disco" filename="DebugInterface.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://127.0.0.1:9001/DebugInterface?xsd=xsd2" filename="DebugInterface1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://127.0.0.1:9001/DebugInterface?wsdl" filename="DebugInterface.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>
