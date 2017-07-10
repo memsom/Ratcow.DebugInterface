@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Ratcow.Debugging.Server
 {
@@ -32,7 +34,7 @@ namespace Ratcow.Debugging.Server
             StartupAction = null; //release it as we don't want to run it again
         }
 
-        public DebugInterface(Action<DebugInterface> startupAction): this()
+        public DebugInterface(Action<DebugInterface> startupAction) : this()
         {
             startupAction?.Invoke(this);
         }
@@ -170,24 +172,54 @@ namespace Ratcow.Debugging.Server
 
         /// <summary>
         /// Simple start-up
+        /// 
+        /// Passing "autoConfig = true", will create a config less service (with almost no security!!!)
+        /// If you have passed autoConfig as true, you can also specify a differnt endpoint URL
         /// </summary>
-        public static ServiceHost Start(Action<DebugInterface> startup)
+        public static ServiceHost Start(Action<DebugInterface> startup, bool autoConfig = false, string url = "http://127.0.0.1:9001/DebugInterface")
         {
             try
             {
                 DebugInterface.StartupAction = startup;
 
-                var svcHost = new ServiceHost(typeof(DebugInterface));
-                svcHost.Open();
+                if (autoConfig)
+                {
+                    var contractType = typeof(IDebugInterface);
+                    var serviceType = typeof(DebugInterface);
+                    var baseAddress = new Uri(url);                    
+
+                    var svcHost = new ServiceHost(serviceType, baseAddress);
+                    svcHost.AddServiceEndpoint(contractType, new BasicHttpBinding(), baseAddress);
+
+                    var smb = new ServiceMetadataBehavior()
+                    {
+                        HttpGetEnabled = true
+                    };
+                    svcHost.Description.Behaviors.Add(smb);
+
+                    svcHost.Open();
+
+                    return svcHost;
+                }
+                else
+                {
+                    var svcHost = new ServiceHost(typeof(DebugInterface));
+                    svcHost.Open();
 
 
-                return svcHost;
+                    return svcHost;
+                }
             }
             catch //(Exception ex)
             {
                 //TODO - add logging etc
                 return null;
             }
+        }
+
+        private static X509Certificate2 GetCertificate()
+        {
+            throw new NotImplementedException();
         }
     }
 }

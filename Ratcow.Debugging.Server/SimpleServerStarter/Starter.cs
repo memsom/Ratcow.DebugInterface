@@ -11,22 +11,27 @@ namespace SimpleServerStarter
 
         public Starter()
         {
-            Interface = new DebugInterface();
-
             c = new TestClass()
             {
                 I = 10,
                 S = "A test message"
             };
-
-            Interface.RegisterProperties(c, "c", "I", "S");
         }
-
-        public DebugInterface Interface { get; private set; }
 
         public Starter Init()
         {
-            serviceHost = DebugInterface.Start(Interface);
+            serviceHost = DebugInterface.Start(
+                (Interface) =>
+                {                   
+                    Interface.RegisterProperties(
+                        c,         //Instance
+                        "c",       //Registered name
+                        "I", "S"   //Registered properties
+                    );
+                }, 
+                true,                             //create a dynamic config (with BasicHttpBinding!!!)
+                "http://127.0.0.1:9001/SuperTest" //use this URL as the base
+            );
 
             return this;
         }
