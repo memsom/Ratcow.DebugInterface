@@ -1,17 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.Debugging.Server", "Ratcow.Debugging.Server\Ratcow.Debugging.Server.csproj", "{ED9721AE-0E70-43DA-8062-2803E5F2AECE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.Debugging.Server.Tests", "..\Ratcow.Debugging.Server.Tests\Ratcow.Debugging.Server.Tests.csproj", "{F5359251-AA8F-46E1-972D-5053480067EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.Debugging.Server.Tests", "Ratcow.Debugging.Server.Tests\Ratcow.Debugging.Server.Tests.csproj", "{F5359251-AA8F-46E1-972D-5053480067EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleServerStarter", "SimpleServerStarter\SimpleServerStarter.csproj", "{42FFD08B-4747-483A-BD90-1BEEFD77EA87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.Debugging.Client", "..\Ratcow.Debugging.Client\Ratcow.Debugging.Client.csproj", "{D9C3D124-87CA-4875-A0BA-B581FA41A87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.Debugging.Client", "Ratcow.Debugging.Client\Ratcow.Debugging.Client.csproj", "{D9C3D124-87CA-4875-A0BA-B581FA41A87C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClientTest", "..\SimpleClientTest\SimpleClientTest.csproj", "{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClientTest", "SimpleClientTest\SimpleClientTest.csproj", "{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{B3DDDA92-7214-4EC6-93DD-73F9CDFC19F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E903502E-50E3-4F30-948F-6B6C6055B253}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{D4AF5949-1654-4EEC-89E0-D4D21FAB89CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +48,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED9721AE-0E70-43DA-8062-2803E5F2AECE} = {B3DDDA92-7214-4EC6-93DD-73F9CDFC19F1}
+		{F5359251-AA8F-46E1-972D-5053480067EF} = {E903502E-50E3-4F30-948F-6B6C6055B253}
+		{42FFD08B-4747-483A-BD90-1BEEFD77EA87} = {D4AF5949-1654-4EEC-89E0-D4D21FAB89CA}
+		{D9C3D124-87CA-4875-A0BA-B581FA41A87C} = {B3DDDA92-7214-4EC6-93DD-73F9CDFC19F1}
+		{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1} = {D4AF5949-1654-4EEC-89E0-D4D21FAB89CA}
 	EndGlobalSection
 EndGlobal
