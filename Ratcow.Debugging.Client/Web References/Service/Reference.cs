@@ -33,6 +33,8 @@ namespace Ratcow.Debugging.Client.Service {
         
         private System.Threading.SendOrPostCallback GetVariableValueOperationCompleted;
         
+        private System.Threading.SendOrPostCallback SetVariableValueOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -76,6 +78,9 @@ namespace Ratcow.Debugging.Client.Service {
         
         /// <remarks/>
         public event GetVariableValueCompletedEventHandler GetVariableValueCompleted;
+        
+        /// <remarks/>
+        public event SetVariableValueCompletedEventHandler SetVariableValueCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IDebugInterface/GetVariableNames", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -133,6 +138,38 @@ namespace Ratcow.Debugging.Client.Service {
             if ((this.GetVariableValueCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetVariableValueCompleted(this, new GetVariableValueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IDebugInterface/SetVariableValue", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void SetVariableValue([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string variableName, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string json, out bool SetVariableValueResult, [System.Xml.Serialization.XmlIgnoreAttribute()] out bool SetVariableValueResultSpecified) {
+            object[] results = this.Invoke("SetVariableValue", new object[] {
+                        variableName,
+                        json});
+            SetVariableValueResult = ((bool)(results[0]));
+            SetVariableValueResultSpecified = ((bool)(results[1]));
+        }
+        
+        /// <remarks/>
+        public void SetVariableValueAsync(string variableName, string json) {
+            this.SetVariableValueAsync(variableName, json, null);
+        }
+        
+        /// <remarks/>
+        public void SetVariableValueAsync(string variableName, string json, object userState) {
+            if ((this.SetVariableValueOperationCompleted == null)) {
+                this.SetVariableValueOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSetVariableValueOperationCompleted);
+            }
+            this.InvokeAsync("SetVariableValue", new object[] {
+                        variableName,
+                        json}, this.SetVariableValueOperationCompleted, userState);
+        }
+        
+        private void OnSetVariableValueOperationCompleted(object arg) {
+            if ((this.SetVariableValueCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SetVariableValueCompleted(this, new SetVariableValueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -203,6 +240,40 @@ namespace Ratcow.Debugging.Client.Service {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1098.0")]
+    public delegate void SetVariableValueCompletedEventHandler(object sender, SetVariableValueCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1098.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SetVariableValueCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal SetVariableValueCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool SetVariableValueResult {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public bool SetVariableValueResultSpecified {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[1]));
             }
         }
     }

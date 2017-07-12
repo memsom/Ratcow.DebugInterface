@@ -108,5 +108,45 @@ namespace Ratcow.Debugging.Client
                 return GetVariableValue(name);
             });
         }
+
+        /// <summary>
+        /// Super smple
+        /// </summary>
+        public bool SetVariableValue(string name, string json)
+        {
+            try
+            {
+                using (var client = new Service.DebugInterface())
+                {
+                    client.Url = Url;
+
+                    bool result, resultSpecified;
+
+                    client.SetVariableValue(name, json, out result, out resultSpecified);
+
+                    return resultSpecified ? result : false;
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Leverages the Microsoft.Bcl.Async package for .Net 4.0
+        /// 
+        /// Compiler will moan about needing to install the lib above,
+        /// but if the Async versions of the methods are not used,
+        /// the programmer can get away with not doing that.
+        /// </summary>
+        public async Task<bool> SetVariableValueAsync(string name, string json)
+        {
+            return await Task.Factory.StartNew<bool>(() =>
+            {
+                return SetVariableValue(name, json);
+            });
+        }
     }
 }

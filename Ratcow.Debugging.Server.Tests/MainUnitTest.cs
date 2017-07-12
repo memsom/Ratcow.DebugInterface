@@ -294,5 +294,44 @@ namespace Ratcow.Debugging.Server.Tests
             Assert.IsNotNull(sc);
             Assert.IsTrue(sc.Length > 0);
         }
+
+
+        [TestMethod]
+        public void BasicTest_Classes_SetValue()
+        {
+            var c = new TestClass
+            {
+                I = ten,
+                S = hello
+            };
+
+            var dbs = new DebugInterface();
+
+            //this seems horrible
+            dbs.RegisterProperties(c, "c", "I", "S");
+
+            var vn = dbs.GetVariableNames();
+            Assert.IsTrue(vn.Length > 0);
+            Assert.IsTrue(vn.Length == 2);
+            Assert.AreEqual(vn[0], "c.I");
+            Assert.AreEqual(vn[1], "c.S");
+
+            var si = dbs.GetVariableValue("c.I");
+            var ss = dbs.GetVariableValue("c.S");
+            Assert.AreEqual(si, ten.ToString());
+            Assert.AreEqual(ss, $"\"{hello}\"");
+
+            //c.I = twentyfive;
+            //c.S = bye;
+
+            Assert.IsTrue(dbs.SetVariableValue("c.I", twentyfive.ToString()));
+            Assert.IsTrue(dbs.SetVariableValue("c.S", $"\"{bye}\""));
+
+            si = dbs.GetVariableValue("c.I");
+            ss = dbs.GetVariableValue("c.S");
+
+            Assert.AreEqual(si, twentyfive.ToString());
+            Assert.AreEqual(ss, $"\"{bye}\"");
+        }
     }
 }
