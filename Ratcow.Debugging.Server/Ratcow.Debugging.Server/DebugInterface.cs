@@ -113,6 +113,29 @@ namespace Ratcow.Debugging.Server
         }
 
         /// <summary>
+        /// Sets the specific property value
+        /// </summary>
+        public bool SetVariableValue(string variableName, string json)
+        {
+            var result = string.Empty;
+
+            if (RegisteredVariables.Any(r => string.Compare(r.RegisteredName, variableName) == 0))
+            {
+                var variable = RegisteredVariables.First(r => string.Compare(r.RegisteredName, variableName) == 0);
+                if (variable.IsDirectReference)
+                {
+                    return false; //not done this part yet
+                }
+                else
+                {
+                    return SetPropertyValue(variable, json);
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Gets the specific property value
         /// </summary>
         object GetPropertyValue(RegisteredVariableItem item)
@@ -140,6 +163,62 @@ namespace Ratcow.Debugging.Server
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Attempts to set a property with a given value.
+        /// 
+        /// Beware!! There are no validations or checks here and it'll completely overwrite the entire structure!
+        /// 
+        /// I'll add in a more granular approach shortly.
+        /// </summary>
+        bool SetPropertyValue(RegisteredVariableItem item, string value)
+        {
+            var type = (item?.Reference is Type) ? item?.Reference as Type : item?.Reference?.GetType();
+            if (type != null)
+            {
+                //TODOL: this is not ideal, but it was what a quick google got me.
+                var isStatic = false;
+                var pi = type.GetProperty(item.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+                if (pi == null)
+                {
+                    pi = type.GetProperty(item.Name, BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+                    isStatic = true;
+                }
+
+                if (pi != null)
+                {
+                    try
+                    {
+                        var objectValue = StringAsInstance(value, pi.PropertyType);
+                        if (isStatic)
+                        {
+                            pi.SetValue(null, objectValue, null);
+                        }
+                        else
+                        {
+                            pi.SetValue(item.Reference, objectValue, null);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                   
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Simple wrapper around deserialising to an instance 
+        /// </summary>
+        object StringAsInstance(string value, Type type)
+        {
+            return JsonConvert.DeserializeObject(value, type);
         }
 
         /// <summary>
@@ -186,7 +265,7 @@ namespace Ratcow.Debugging.Server
                 {
                     var contractType = typeof(IDebugInterface);
                     var serviceType = typeof(DebugInterface);
-                    var baseAddress = new Uri(url);                    
+                    var baseAddress = new Uri(url);
 
                     var svcHost = new ServiceHost(serviceType, baseAddress);
                     svcHost.AddServiceEndpoint(contractType, new BasicHttpBinding(), baseAddress);
@@ -215,11 +294,6 @@ namespace Ratcow.Debugging.Server
                 //TODO - add logging etc
                 return null;
             }
-        }
-
-        private static X509Certificate2 GetCertificate()
-        {
-            throw new NotImplementedException();
         }
     }
 }

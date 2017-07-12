@@ -10,5 +10,8 @@ namespace Ratcow.Debugging.Server
 
         [OperationContract]
         string GetVariableValue(string variableName);
+
+        [OperationContract]
+        bool SetVariableValue(string variableName, string json);
     }
 }
