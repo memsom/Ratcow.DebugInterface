@@ -60,13 +60,22 @@ namespace Ratcow.Debugging.Client
         }
 
         /// <summary>
+        /// This will go. It was an unfortunate cut/paste mistake
+        /// </summary>
+        [Obsolete]
+        public async Task<string[]> GetVariableNamesAsync(string name)
+        {
+            return await this.GetVariableNamesAsync();
+        }
+
+        /// <summary>
         /// Leverages the Microsoft.Bcl.Async package for .Net 4.0
         /// 
         /// Compiler will moan about needing to install the lib above,
         /// but if the Async versions of the methods are not used,
         /// the programmer can get away with not doing that.
         /// </summary>
-        public async Task<string[]> GetVariableNamesAsync(string name)
+        public async Task<string[]> GetVariableNamesAsync()
         {
             return await Task.Factory.StartNew<string[]>(() =>
             {
