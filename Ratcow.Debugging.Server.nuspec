@@ -1,20 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-    <metadata>
-        <id>Ratcow.Debugging.Server</id>
-        <version>0.0.2</version>
-        <authors>Ratcow Soft</authors>
-        <iconUrl>https://pbs.twimg.com/profile_images/414756286/ratcowmascot_400x400.PNG</iconUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Simple captive WCF service to allow an app to export its variables and properties at runtime in JSON format.
-
-            This can be used to debug an app in production, getting insight will out a debuggeer being attached or any breakpoints being enabled.</description>
-        <copyright>Ratcow soft (c) 2017</copyright>
-        <dependencies>
-            <dependency id="Newtonsoft.Json" version="[6.0.8]" />
-        </dependencies>
-    </metadata>
-    <files>
-        <file src="Ratcow.Debugging.Server\Ratcow.Debugging.Server\bin\Debug\Ratcow.Debugging.Server.dll" target="lib\Ratcow.Debugging.Server.dll" />
-    </files>
+  <metadata>
+    <id>Ratcow.Debugging.Server</id>
+    <version>0.0.3</version>
+    <authors>Ratcow Soft</authors>
+    <iconUrl>https://pbs.twimg.com/profile_images/414756286/ratcowmascot_400x400.PNG</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple WCF Service for live variable watches.</description>
+    <summary>Simple captive WCF service to allow an app to export its variables and properties at runtime in JSON format.
+    
+    This can be used to debug an app in production, getting insight will out a debuggeer being attached or any breakpoints being enabled.</summary>
+    <copyright>Ratcow soft (c) 2017</copyright>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="[6.0.8]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Ratcow.Debugging.Server\bin\Debug\Ratcow.Debugging.Server.dll" target="lib\Ratcow.Debugging.Server.dll" />
+  </files>
 </package>

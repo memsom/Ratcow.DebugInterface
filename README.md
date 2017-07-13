@@ -8,4 +8,10 @@ I seem to have re-written this code a number of times over the last 3 or 4 years
 
 For a mote in depth discussion and sample code, look at this article, see https://www.codeproject.com/Articles/1195657/Simple-DebugInterface for a brief intro I wrote.
 
+## What's new
+The current master has extensiont to allow very basic 2 way data interchange. These have not been greatly tested, so be careful! There's also a zero config version of the static factory method. This creates an instance of the service, but uses basic authentication. If you need something more, I'd suggest still using the config option. This method also allows you to provide a different endpoint for the service. Again, this is useful, but YMMV as it's not really been tested too indepthly.
+
+Builds are now built on Appveyor. I'll set up artifacts to alloe direct downloads at some point and push changes to master to Nuget automatically.
+
+
 
