@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.Debugging.Server", "Ratcow.Debugging.Server\Ratcow.Debugging.Server.csproj", "{ED9721AE-0E70-43DA-8062-2803E5F2AECE}"
 EndProject
@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Ratcow.Debugging.Server.nuspec = Ratcow.Debugging.Server.nuspec
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratcow.DebugViewer", "Ratcow.DebugViewer\Ratcow.DebugViewer.csproj", "{CB82B285-88A6-4BFA-AC05-DEF0180BB1AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB82B285-88A6-4BFA-AC05-DEF0180BB1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB82B285-88A6-4BFA-AC05-DEF0180BB1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB82B285-88A6-4BFA-AC05-DEF0180BB1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB82B285-88A6-4BFA-AC05-DEF0180BB1AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,9 @@ Global
 		{42FFD08B-4747-483A-BD90-1BEEFD77EA87} = {D4AF5949-1654-4EEC-89E0-D4D21FAB89CA}
 		{D9C3D124-87CA-4875-A0BA-B581FA41A87C} = {B3DDDA92-7214-4EC6-93DD-73F9CDFC19F1}
 		{4570F611-93F0-4B4F-9ABA-CC9D7171FBE1} = {D4AF5949-1654-4EEC-89E0-D4D21FAB89CA}
+		{CB82B285-88A6-4BFA-AC05-DEF0180BB1AB} = {D4AF5949-1654-4EEC-89E0-D4D21FAB89CA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91ED84D8-1C4D-4320-9AA8-47CA343EAB0C}
 	EndGlobalSection
 EndGlobal

@@ -16,7 +16,7 @@ namespace Ratcow.Debugging.Server
     /// Simple debug interface (I've created this too many times, now a more generic version.)
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class DebugInterface : IDebugInterface
+    public class DebugInterface : IDebugInterface, IDebugConfigurationInterface
     {
         public List<RegisteredVariableItem> RegisteredVariables { get; set; }
         public static Action<DebugInterface> StartupAction { get; set; }
