@@ -49,7 +49,6 @@ namespace Ratcow.DebugViewer
         ListViewHelper<NameContainer> lvHelper;
 
         Engine engine;
-        DebugInterfaceEngine engine2;
 
         public MainForm()
         {
@@ -163,6 +162,34 @@ namespace Ratcow.DebugViewer
             }
 
             await engine.RefreshNames();
+        }
+
+        void UpdateAddress(string data)
+        {
+            if (addressTextBox.InvokeRequired)
+            {
+                this.Invoke(new UpdateTextViewDelegate(UpdateTextView), new object[] { data });
+            }
+            else
+            {
+                addressTextBox.Text = data;
+            }
+        }
+
+        void OnSelectedUrl(string newUrl)
+        {
+            UpdateAddress(newUrl);
+        }
+
+        void button4_Click(object sender, EventArgs e)
+        {
+            var linksForm = new LinksForm();
+            linksForm.NewUrl = addressTextBox.Text;
+            linksForm.SelectedUrl += OnSelectedUrl;
+            linksForm.ShowDialog();
+            linksForm.SelectedUrl -= OnSelectedUrl;
+
+            linksForm = null;
         }
     }
 }

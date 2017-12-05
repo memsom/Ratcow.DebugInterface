@@ -65,7 +65,7 @@ namespace Ratcow.DebugViewer
         /// </summary>
         async Task<string[]> LoadNames()
         {
-            return await client.GetVariableNamesAsync(string.Empty);
+            return await client.GetVariableNamesAsync();
         }
 
         /// <summary>
