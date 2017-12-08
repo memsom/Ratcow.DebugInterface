@@ -142,6 +142,10 @@ namespace Ratcow.DebugViewer
         async void button1_Click(object sender, EventArgs e)
         {
             await engine.RefreshNames();
+
+            var c = WindowsFormsSynchronizationContext.Current;
+
+            await engine.RefreshNameTree(treeView1, c);
         }
 
         async void button2_Click(object sender, EventArgs e)
@@ -162,6 +166,10 @@ namespace Ratcow.DebugViewer
             }
 
             await engine.RefreshNames();
+
+            var c = WindowsFormsSynchronizationContext.Current;
+
+            await engine.RefreshNameTree(treeView1, c);
         }
 
         void UpdateAddress(string data)
@@ -190,6 +198,19 @@ namespace Ratcow.DebugViewer
             linksForm.SelectedUrl -= OnSelectedUrl;
 
             linksForm = null;
+        }
+
+        async void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var selected = e.Node;
+            if (selected != null && selected.Tag != null)
+            {
+                var item = (TreeNodeItem)selected.Tag;
+                if (item.Final)
+                {
+                    await engine.RefreshDetail(item.NameContainer);
+                }
+            }
         }
     }
 }

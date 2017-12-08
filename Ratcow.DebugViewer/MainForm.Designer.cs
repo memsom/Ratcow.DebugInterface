@@ -39,12 +39,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.fastColoredTextBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -54,7 +53,7 @@
             this.listView1.Location = new System.Drawing.Point(1, 36);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(397, 494);
+            this.listView1.Size = new System.Drawing.Size(397, 304);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -75,7 +74,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(803, 533);
+            this.button2.Location = new System.Drawing.Point(819, 609);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(132, 30);
             this.button2.TabIndex = 8;
@@ -86,7 +85,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(1, 533);
+            this.button1.Location = new System.Drawing.Point(1, 609);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 30);
             this.button1.TabIndex = 7;
@@ -100,7 +99,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.addressTextBox.Location = new System.Drawing.Point(63, 10);
             this.addressTextBox.Name = "addressTextBox";
-            this.addressTextBox.Size = new System.Drawing.Size(753, 20);
+            this.addressTextBox.Size = new System.Drawing.Size(769, 20);
             this.addressTextBox.TabIndex = 10;
             this.addressTextBox.Text = "http://localhost:9001/DebugInterface";
             // 
@@ -116,7 +115,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(822, 8);
+            this.button3.Location = new System.Drawing.Point(838, 8);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(61, 22);
             this.button3.TabIndex = 12;
@@ -136,13 +135,13 @@
             this.fastColoredTextBox1.Name = "fastColoredTextBox1";
             this.fastColoredTextBox1.ReadOnly = true;
             this.fastColoredTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.fastColoredTextBox1.Size = new System.Drawing.Size(531, 494);
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(547, 570);
             this.fastColoredTextBox1.TabIndex = 13;
             // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(889, 8);
+            this.button4.Location = new System.Drawing.Point(905, 8);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(35, 22);
             this.button4.TabIndex = 14;
@@ -150,11 +149,22 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // treeView1
+            // 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeView1.Location = new System.Drawing.Point(1, 346);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(397, 257);
+            this.treeView1.TabIndex = 15;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 565);
+            this.ClientSize = new System.Drawing.Size(953, 641);
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.fastColoredTextBox1);
             this.Controls.Add(this.button3);
@@ -185,6 +195,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox fastColoredTextBox1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 

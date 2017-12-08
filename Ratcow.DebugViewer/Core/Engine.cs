@@ -34,12 +34,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Ratcow.DebugViewer.Core
 {
     public delegate void UpdateListViewDelegate(NameContainer[] nameData);
     public delegate void UpdateTextViewDelegate(string data);
+    public delegate void UpdateNoneDelegate();
 
     /// <summary>
     /// Engine that is async and pull realtime debug data from the attached service.
@@ -205,6 +208,112 @@ namespace Ratcow.DebugViewer.Core
             });
         }
 
+        public async Task RefreshNameTree(TreeView treeView, SynchronizationContext c)
+        {
+            await Task.Run(async () =>
+            {
+                var names = await LoadNames();
+
+                var nameData = await ProcessNames(names);
+
+                var tree = await MakeTree(nameData);
+
+                await CreateTree(tree, treeView, c);
+            });
+        }
+
+        async Task<TreeNodeItem> MakeTree(NameContainer[] names)
+        {
+            return await Task.Run<TreeNodeItem>(async () =>
+            {
+                var root = new TreeNodeItem { Name = "root" };
+
+                foreach (var name in names)
+                {
+                    var path = name.Name;
+                    await WalkPath(root, path, path, name);
+                }
+
+
+                return root;
+            });
+        }
+
+        async Task WalkPath(TreeNodeItem node, string path, string fullpath, NameContainer name)
+        {
+            await Task.Run(async () =>
+            {
+                var pathArray = path.Split('.');
+                if (pathArray == null || pathArray.Length <= 1)
+                {
+                    if (!node.Nodes.Any(p => p.Path == path))
+                    {
+                        var next = new TreeNodeItem { Path = path, Name = path, Final = true, NameContainer = name };
+                        node.Nodes.Add(next);
+                    }
+                }
+                else
+                {
+                    var newPath = string.Join(".", pathArray.Skip(1));
+                    var curPath = string.Join(".", pathArray.Take(1));
+
+                    TreeNodeItem next = null;
+                    if (!node.Nodes.Any(p => p.Path == curPath))
+                    {
+                        next = new TreeNodeItem { Name = pathArray[0], Path = curPath };
+                        node.Nodes.Add(next);
+                    }
+                    else
+                    {
+                        next = node.Nodes.First(p => p.Path == curPath);
+                    }
+
+                    await WalkPath(next, newPath, fullpath, name);
+                }
+            });
+        }
+
+        public async Task CreateTree(TreeNodeItem node, TreeView control, SynchronizationContext c)
+        {
+            TreeNode root = null;
+
+            c.Send((s) =>
+            {
+                control.Nodes.Clear();
+                root = control.Nodes.Add("root");
+            }, null);
+
+            await Task.Run(async () =>
+            {
+                foreach (var item in node.Nodes)
+                {
+                    await WalkTree(control, c, item, root);
+                }
+            });
+        }
+
+        async Task WalkTree(TreeView control, SynchronizationContext c, TreeNodeItem nodeItem, TreeNode node)
+        {
+            TreeNode newNode = null;
+
+            c.Send((s) =>
+            {
+                newNode = node.Nodes.Add(nodeItem.Name);
+                newNode.Tag = nodeItem;
+            }, null);
+
+            await Task.Run(async () =>
+            {                
+                if (!nodeItem.Final)
+                {
+                    foreach (var item in nodeItem.Nodes)
+                    {
+                        await WalkTree(control, c, item, newNode);
+                    }
+                }
+            });
+        }
+
         #region IDisposable Support
         bool disposedValue = false; // To detect redundant calls
 
@@ -239,5 +348,19 @@ namespace Ratcow.DebugViewer.Core
             // GC.SuppressFinalize(this);
         }
         #endregion
+    }
+
+    public class TreeNodeItem
+    {
+        public TreeNodeItem()
+        {
+            Nodes = new List<TreeNodeItem>();
+        }
+
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public bool Final { get; set; }
+        public List<TreeNodeItem> Nodes { get; }
+        public NameContainer NameContainer { get; internal set; }
     }
 }
