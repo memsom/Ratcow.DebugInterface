@@ -12,6 +12,9 @@ namespace Ratcow.Debugging.Server
         void RegisterProperties(object value, string parentName, params string[] properties);
 
         [OperationContract]
+        void RegisterInstance(object value, string name = null, bool includeNonPublic = false);
+
+        [OperationContract]
         void RegisterValue<T>(Ref<T> value, string name);
     }
 }

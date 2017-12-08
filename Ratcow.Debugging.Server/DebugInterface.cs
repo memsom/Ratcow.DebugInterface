@@ -52,6 +52,20 @@ namespace Ratcow.Debugging.Server
         }
 
         /// <summary>
+        ///  NEW - makes adding muliple values a lof more fluid.
+        /// </summary>
+        public void RegisterInstance(object value, string name = null, bool includeNonPublic = false)
+        {
+            var type = value?.GetType();
+            var level = (includeNonPublic ? BindingFlags.NonPublic | BindingFlags.Public : BindingFlags.Public) | BindingFlags.Instance | BindingFlags.Static | BindingFlags.FlattenHierarchy;
+            var foundProperties = type?.GetProperties(level)?.Select(p => p.Name)?.ToArray();
+            if (foundProperties != null)
+            {
+                RegisterProperties(value, name ?? type.Name, foundProperties);
+            }
+        }
+
+        /// <summary>
         /// Registers a property
         /// </summary>
         public void RegisterProperties(object value, string parentName, params string[] properties)
