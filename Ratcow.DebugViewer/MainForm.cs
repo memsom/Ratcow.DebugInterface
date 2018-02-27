@@ -76,7 +76,9 @@ namespace Ratcow.DebugViewer
 
         async void MainForm_Load(object sender, EventArgs e)
         {
-            await engine.RefreshNames();
+            var filter = filterTextBox.Text.Trim();
+
+            await RefreshAll(); //engine.RefreshNames(filter);
         }
 
         void UpdateListView(NameContainer[] nameData)
@@ -139,13 +141,24 @@ namespace Ratcow.DebugViewer
 
         }
 
-        async void button1_Click(object sender, EventArgs e)
+        async Task RefreshAll()
         {
-            await engine.RefreshNames();
-
             var c = WindowsFormsSynchronizationContext.Current;
 
-            await engine.RefreshNameTree(treeView1, c);
+            await Task.Run(async () =>
+            {
+                var filter = filterTextBox.Text?.Trim();
+
+                await engine.RefreshNames(filter);
+               
+                await engine.RefreshNameTree(treeView1, c, filter);
+
+            });
+        }
+
+        async void button1_Click(object sender, EventArgs e)
+        {
+            await RefreshAll();
         }
 
         async void button2_Click(object sender, EventArgs e)
@@ -165,11 +178,7 @@ namespace Ratcow.DebugViewer
                 SetEngine(addressTextBox.Text);
             }
 
-            await engine.RefreshNames();
-
-            var c = WindowsFormsSynchronizationContext.Current;
-
-            await engine.RefreshNameTree(treeView1, c);
+            await RefreshAll();
         }
 
         void UpdateAddress(string data)
@@ -210,6 +219,20 @@ namespace Ratcow.DebugViewer
                 {
                     await engine.RefreshDetail(item.NameContainer);
                 }
+            }
+        }
+
+        async void filterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            await RefreshAll();
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            var selected = lvHelper.GetSelectedItemOrDefault();
+            if(selected!= null)
+            {
+                filterTextBox.Text = selected.Name;
             }
         }
     }

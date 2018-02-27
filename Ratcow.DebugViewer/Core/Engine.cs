@@ -96,14 +96,21 @@ namespace Ratcow.DebugViewer.Core
         /// <summary>
         /// Processes names we got from the service
         /// </summary>
-        async Task<NameContainer[]> ProcessNames(string[] names)
+        async Task<NameContainer[]> ProcessNames(string[] names, string filter)
         {
             return await Task.Run(() =>
             {
+                var filterIsValid = !string.IsNullOrEmpty(filter?.Trim());
                 var results = new List<NameContainer>();
                 foreach (var name in names)
                 {
                     var values = name.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (filterIsValid && !values[0].StartsWith(filter))
+                    {
+                        continue;
+                    }
+
                     if (values.Length == 1)
                     {
                         results.Add(new NameContainer { Name = values[0], Type = "object", IsArray = false });
@@ -181,13 +188,13 @@ namespace Ratcow.DebugViewer.Core
         /// This can probably be merged with RefreshDetail, but at the moment the
         /// two legacy implementations are both here.
         /// </summary>
-        public async Task<NameContainer[]> GetNames()
+        public async Task<NameContainer[]> GetNames(string filter = null)
         {
             return await Task.Run(async () =>
             {
                 var names = await LoadNames();
 
-                var nameData = await ProcessNames(names);
+                var nameData = await ProcessNames(names, filter);
 
                 return nameData;
             });
@@ -196,25 +203,25 @@ namespace Ratcow.DebugViewer.Core
         /// <summary>
         /// Called to update the variable names
         /// </summary>
-        public async Task RefreshNames()
+        public async Task RefreshNames(string filter = null)
         {
             await Task.Run(async () =>
             {
                 var names = await LoadNames();
 
-                var nameData = await ProcessNames(names);
+                var nameData = await ProcessNames(names, filter);
 
                 RefreshNameListView?.Invoke(nameData);
             });
         }
 
-        public async Task RefreshNameTree(TreeView treeView, SynchronizationContext c)
+        public async Task RefreshNameTree(TreeView treeView, SynchronizationContext c, string filter = null)
         {
             await Task.Run(async () =>
             {
                 var names = await LoadNames();
 
-                var nameData = await ProcessNames(names);
+                var nameData = await ProcessNames(names, filter);
 
                 var tree = await MakeTree(nameData);
 
