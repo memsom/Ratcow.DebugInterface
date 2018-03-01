@@ -13,5 +13,5 @@ The current master has extensiont to allow very basic 2 way data interchange. Th
 
 Builds are now built on Appveyor. I'll set up artifacts to alloe direct downloads at some point and push changes to master to Nuget automatically.
 
-
+If you find my work useful, please consider buying me a coffee.. [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/bmc-f-logo.svg)](https://buymeacoff.ee/Bxn0HAtp3)
 
