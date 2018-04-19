@@ -60,6 +60,8 @@ namespace Ratcow.DebugViewer
             Service = service;
 
             InitializeComponent();
+
+            Text = $"Edit :: {NameValue.DisplayValue}";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -86,7 +88,8 @@ namespace Ratcow.DebugViewer
         private async void EditValueForm_Load(object sender, EventArgs e)
         {
             //load the detail
-            fastColoredTextBox1.Text = await Service.GetDetail(NameValue);
+            var data = await Service.GetDetail(NameValue);
+            UpdateTextView(data);
         }
 
         private void fastColoredTextBox1_TextChanged(object sender, EventArgs e)
@@ -95,6 +98,24 @@ namespace Ratcow.DebugViewer
             //it's down to them to remember to press "save" as
             //this is just a quick and dirty form for now.
             stateLabel.Text = "Unsaved";
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            var data = await Service.GetDetail(NameValue);
+            UpdateTextView(data);
+        }
+
+        void UpdateTextView(string data)
+        {
+            if (fastColoredTextBox1.InvokeRequired)
+            {
+                this.Invoke(new UpdateTextViewDelegate(UpdateTextView), new object[] { data });
+            }
+            else
+            {
+                fastColoredTextBox1.Text = data;
+            }
         }
     }
 }

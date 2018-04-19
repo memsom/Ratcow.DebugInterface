@@ -242,9 +242,7 @@ namespace Ratcow.DebugViewer
             if (selected != null)
             {
                 var dialog = new EditValueForm(engine, selected);
-                dialog.ShowDialog();
-
-                await RefreshAll();
+                dialog.Show();
             }
         }
     }
