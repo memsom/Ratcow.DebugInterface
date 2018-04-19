@@ -155,6 +155,29 @@ namespace Ratcow.DebugViewer.Core
             });
         }
 
+        public async Task<Boolean> SetDetail(NameContainer name, string value)
+        {
+            return await Task.Run(() =>
+            {
+
+                var result = false;
+
+                try
+                {
+                    using (var service = GetService())
+                    {
+                        result = service.SetVariableValue(name.Name, value);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
+                return result;
+            });
+        }
+
         /// <summary>
         /// Called to update the detail via the event
         /// </summary>

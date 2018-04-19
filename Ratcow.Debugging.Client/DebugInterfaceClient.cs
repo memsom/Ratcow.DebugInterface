@@ -60,15 +60,6 @@ namespace Ratcow.Debugging.Client
         }
 
         /// <summary>
-        /// This will go. It was an unfortunate cut/paste mistake
-        /// </summary>
-        [Obsolete]
-        public async Task<string[]> GetVariableNamesAsync(string name)
-        {
-            return await this.GetVariableNamesAsync();
-        }
-
-        /// <summary>
         /// Leverages the Microsoft.Bcl.Async package for .Net 4.0
         /// 
         /// Compiler will moan about needing to install the lib above,
@@ -119,7 +110,7 @@ namespace Ratcow.Debugging.Client
         }
 
         /// <summary>
-        /// Super smple
+        /// Super simple
         /// </summary>
         public bool SetVariableValue(string name, string json)
         {

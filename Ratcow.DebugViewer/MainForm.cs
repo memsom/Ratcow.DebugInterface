@@ -235,5 +235,17 @@ namespace Ratcow.DebugViewer
                 filterTextBox.Text = selected.Name;
             }
         }
+
+        private async void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var selected = lvHelper.GetSelectedItemOrDefault();
+            if (selected != null)
+            {
+                var dialog = new EditValueForm(engine, selected);
+                dialog.ShowDialog();
+
+                await RefreshAll();
+            }
+        }
     }
 }

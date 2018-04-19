@@ -20,7 +20,7 @@ namespace SimpleServerStarter
 
         public Starter Init()
         {
-            serviceHost = DebugInterface.Start(
+            serviceHost = DebugInterfaceFactory.Start<DebugInterface, IDebugInterface>(
                 (Interface) =>
                 {                   
                     Interface.RegisterProperties(
@@ -37,7 +37,7 @@ namespace SimpleServerStarter
 
         public Starter Init2()
         {
-            serviceHost = DebugInterface.Start(
+            serviceHost = DebugInterfaceFactory.Start<DebugInterface, IDebugInterface>(
                 (Interface) =>
                 {
                     Interface.RegisterProperties(

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebugInterface.cs" />
+    <Compile Include="DebugInterfaceFactory.cs" />
     <Compile Include="IDebugConfigurationInterface.cs" />
     <Compile Include="IDebugInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
